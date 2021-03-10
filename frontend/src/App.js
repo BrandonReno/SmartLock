@@ -1,23 +1,40 @@
-import logo from './logo.svg';
 import './App.css';
+import styled from 'styled-components'
+
+const Button = styled.button`
+  background-color:#7DF9FF;
+  color: black;
+  padding: 5px 15px;
+  border-radius: 7px;
+  outline:0;
+  cursor:pointer;
+  text-transform: uppercase;
+  box-shadow: 2px 7px 7px black;
+  transition: ease background-color 250ms;
+  margin: 10px 20px;
+  &:hover{
+    background-color:#61DFE5
+  }
+  `
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+    <div className="Lock">
+      <header className="Lock-header">
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Current SmartLock build in dev.
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <div classname = "LockButtons">
+          <Button>
+            Lock
+          </Button>
+
+          <Button>
+            Unlock
+          </Button>
+
+        </div>
+       </header>
     </div>
   );
 }
