@@ -11,11 +11,10 @@ origins = [
 
 
 class User(BaseModel):
-    name: str
+    name: Optional[str] = None
     lock: bool
 
-MockDB = []
-Lock_Status = False
+MockDB = [User(name="Brandon Reno", lock = True)]
 
 app = FastAPI(debug=True)
 
@@ -29,11 +28,18 @@ app.add_middleware(
 
 @app.get("/status")
 def get_Lock_Status():
-    return Lock_Status
+    if MockDB[-1].lock:
+        return {str(MockDB[-1].lock)}
+    return {str(MockDB[-1].lock)}
+
+@app.get("/past")
+def get_Past_Opens():
+    return MockDB
 
 @app.post("/status")
 def Toggle_Lock(Current_User : User):
-    global Lock_Status
-    Lock_Status = Current_User.lock
-    MockDB.append(Current_User.dict())
-    return MockDB[-1]
+    Last_User = MockDB[-1]
+    if Last_User.lock == Current_User.lock :
+        return {"task" : "Lock already in position."}
+    MockDB.append(Current_User)
+    return {"task" : "Lock toggled"}
