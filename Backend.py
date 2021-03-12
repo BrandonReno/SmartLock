@@ -37,9 +37,9 @@ def get_Past_Opens():
     return MockDB
 
 @app.post("/status")
-def Toggle_Lock(Current_User : User):
+def Toggle_Lock(Name : Optional[str] = None):
     Last_User = MockDB[-1]
-    if Last_User.lock == Current_User.lock :
-        return {"task" : "Lock already in position."}
-    MockDB.append(Current_User)
-    return {"task" : "Lock toggled"}
+    New_User = User(name = Name, lock= not Last_User.lock)
+    MockDB.append(New_User)
+    return New_User
+       
